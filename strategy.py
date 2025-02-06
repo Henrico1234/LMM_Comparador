@@ -1,4 +1,3 @@
-# strategy.py
 import numpy as np
 import textstat
 from sentence_transformers import SentenceTransformer, util
@@ -28,9 +27,7 @@ class EnhancedEvaluationStrategy:
             observer.update(best_response, explanation)
 
     def evaluate(self, responses, prompt):
-        """
-        Avalia as respostas com base em múltiplos critérios
-        """
+   
         def is_valid_response(response):
             if "no, no, no" in response.lower():
                 return False
@@ -43,7 +40,7 @@ class EnhancedEvaluationStrategy:
         if not valid_responses:
             return {"best_response": "Nenhuma resposta válida encontrada.", "best_model": "N/A", "explanation": "Todas as respostas foram consideradas inválidas."}
 
-        # 1. Similaridade semântica
+        #  Similaridade semântica
         similarities = np.array([semantic_similarity(prompt, response) for response in valid_responses.values()])
 
         # Legibilidade (Flesch-Kincaid readability)
@@ -52,8 +49,8 @@ class EnhancedEvaluationStrategy:
 
       
         scores = (
-            0.7 * similarities +  # Aumentando o peso da similaridade
-            0.3 * (readability_scores / 100)  # Mantendo o peso da legibilidade
+            0.7 * similarities +  
+            0.3 * (readability_scores / 100)  
         )
 
         best_index = np.argmax(scores)

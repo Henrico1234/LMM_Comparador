@@ -1,13 +1,3 @@
-import warnings
-import logging
-
-# Suprimir warnings do transformers
-warnings.filterwarnings("ignore", category=UserWarning, module="transformers")
-
-# Suprimir logs do transformers (caso seja o caso)
-logging.getLogger("transformers").setLevel(logging.ERROR)
-
-# main.py
 from factory import ChatGPT, OtherLLM
 from commands import QueryLLMsCommand
 from strategy import EnhancedEvaluationStrategy
@@ -45,7 +35,7 @@ def main():
                 print(f"{name}: {response}")
 
             # Avaliando as respostas e notificando o observador
-            result = strategy.evaluate(responses, user_prompt)
+            strategy.evaluate(responses, user_prompt)
 
 
         elif choice == "2":
